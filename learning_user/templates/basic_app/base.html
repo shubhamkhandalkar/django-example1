@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 100%; height: 100%">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title_block %} {% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            window.onresize = function(event) {
+                resize_handler()
+            };
+            window.onload = function(event) {
+                resize_handler()
+            };
+            function resize_handler(){
+                body = document.getElementById("body");
+                navbar = document.getElementById("navbar");
+                body.style.paddingTop = navbar.offsetHeight + "px";
+                //alert(navbar.children[0].children[0].childElementCount);
+                //alert(navbar.offsetHeight);
+                //alert('resized');
+            }
+        </script>
+    </head>
+    <body id="body" style="height: 100%; width: 100%">
+        <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li><a class="navbar-brand" href="{% url 'index' %}">Django</a></li>
+                    <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    <li><a class="navbar-link" href="{% url 'basic_app:register' %}">Register</a></li>
+                    <li><a class="navbar-link" href="{% url 'basic_app:special' %}">Special</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a class="navbar-link" href="{% url 'basic_app:login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div style="overflow: auto; width: 100%">
+            {% block body_block %}{% endblock %}
+        </div>
+    </body>
+</html>

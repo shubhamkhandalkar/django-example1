@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "basic_app/base.html" %}
+{% block title_block %}Login{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Login</h1>
+            <form action="{% url 'basic_app:login' %}" method="POST">
+                {% csrf_token %}
+                <label for="username" >Username </label>
+                <input type="text" name="username" placeholder="Enter your username">
+                <label for="password" >Password </label>
+                <input type="password" name="password">
+                {% if next %}
+                    <input hidden type="text" name="next" value="{{ next }}">
+                {% endif %}
+                <input type="Submit" value="Login">
+            </form>
+        </div>
+    </div>
+{% endblock %}
